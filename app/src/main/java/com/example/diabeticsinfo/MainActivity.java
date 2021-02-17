@@ -3,7 +3,7 @@ package com.example.diabeticsinfo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-//Nathan Hoskins
+
 public class MainActivity extends AppCompatActivity {
 //Comment 1
     @Override
@@ -13,4 +13,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Hi From Matt!
+    //Hello Matt I'm nate
 }
