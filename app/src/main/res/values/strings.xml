@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Diabetics Info</string>
+    <string name="generateReport">Generate Report</string>
+    <string name="inputVitals">Input Vitals</string>
+    <string name="medications">Medications</string>
+    <string name="inputExcersize">Input Excersize</string>
 </resources>
