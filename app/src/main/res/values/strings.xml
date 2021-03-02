@@ -4,4 +4,10 @@
     <string name="inputVitals">Input Vitals</string>
     <string name="medications">Medications</string>
     <string name="inputExcersize">Input Excersize</string>
+    <string name="goBack">Back</string>
+    <string name="submit">Submit</string>
+    <string name="clear">Clear</string>
+    <string name="listMeds">List Medications</string>
+    <string name="medicationName">Medication</string>
+    <string name="amount">Amount</string>
 </resources>
