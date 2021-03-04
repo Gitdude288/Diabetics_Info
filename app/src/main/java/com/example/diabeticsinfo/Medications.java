@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,7 +16,8 @@ public class Medications extends AppCompatActivity {
 
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "Medications" ;
-    String medicine = "Test";
+    public static final String MEDNAME = "med";
+    public static final String MEDAMOUNT = "amt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +25,15 @@ public class Medications extends AppCompatActivity {
         setContentView(R.layout.activity_medications);
 
         Map<String, Integer> medsList;
-
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        int defaultValue = 30;
-        int highScore = sharedpreferences.getInt(medicine, defaultValue);
+        String med = sharedpreferences.getString(MEDNAME, "bob");
+        int amt = sharedpreferences.getInt(MEDAMOUNT, 0);
 
-        System.out.println(medicine + ": " + highScore);
+        Log.d("onCreate: ","this is med name: " + med +" and this is amount: " + amt);
+
     }
+
+    //public void
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -44,9 +48,16 @@ public class Medications extends AppCompatActivity {
         int amt = Integer.parseInt(editText2.getText().toString());
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        //SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt(medicine, amt);
+        editor.putString(MEDNAME, med);
+        editor.putInt(MEDAMOUNT, amt);
         editor.apply();
+
+        /*SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.saved_high_score_key), newHighScore);
+        editor.apply();*/
     }
 
     public void getMedications(View view) {
