@@ -40,6 +40,11 @@ public class Medications extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToList(View view) {
+        Intent intent = new Intent(this, MedicationsList.class);
+        startActivity(intent);
+    }
+
     public void addMedication(View view) {
         //Get medication name and amount that user entered
         EditText editText = (EditText) findViewById(R.id.medicationName);
