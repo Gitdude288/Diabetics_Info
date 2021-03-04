@@ -15,6 +15,7 @@ public class Medications extends AppCompatActivity {
 
     SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "Medications" ;
+    String medicine = "Test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,12 @@ public class Medications extends AppCompatActivity {
         setContentView(R.layout.activity_medications);
 
         Map<String, Integer> medsList;
-        
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        int defaultValue = 30;
+        int highScore = sharedpreferences.getInt(medicine, defaultValue);
+
+        System.out.println(medicine + ": " + highScore);
     }
 
     public void goBack(View view) {
@@ -39,7 +45,7 @@ public class Medications extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt(med, amt);
+        editor.putInt(medicine, amt);
         editor.apply();
     }
 
