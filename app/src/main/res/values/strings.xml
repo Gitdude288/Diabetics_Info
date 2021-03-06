@@ -16,4 +16,6 @@
     <string name="blsInputLabel">Current Reading</string>
     <string name="saveButton">Save</string>
     <string name="label90DayAverage">90 Day Average</string>
+    <string name="slLabel">Systolic BP</string>
+    <string name="dlLabel">Diastolic BP</string>
 </resources>
