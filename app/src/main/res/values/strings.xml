@@ -13,4 +13,7 @@
     <string name="blsButton">Blood Sugar Levels</string>
     <string name="bpButton">Blood Pressure</string>
     <string name="vitalBanner">Blood Pressures and Blood Sugars</string>
+    <string name="blsInputLabel">Current Reading</string>
+    <string name="saveButton">Save</string>
+    <string name="label90DayAverage">90 Day Average</string>
 </resources>
