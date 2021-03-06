@@ -21,8 +21,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Medications.class);
         startActivity(intent);
     }
+
     public void goToExercise (View view) {
         Intent intent = new Intent(this, Exercise.class);
+        startActivity(intent);
+    }
+
+    public void goToGenerateReport(View view) {
+        Intent intent = new Intent(this, GenerateReportActivity.class);
         startActivity(intent);
     }
     //Hi From Matt!
