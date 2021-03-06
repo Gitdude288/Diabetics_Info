@@ -25,6 +25,7 @@
         android:layout_marginStart="150dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="150dp"
+        android:onClick="goToExercise"
         android:text="@string/inputExcersize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
