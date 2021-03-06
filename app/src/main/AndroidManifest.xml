@@ -9,14 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticsInfo">
-        <activity
-            android:name=".ReportPreviewActivity">
+        <activity android:name=".Vitals"></activity>
+        <activity android:name=".ReportPreviewActivity">
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".GenerateReportActivity"
             android:parentActivityName=".MainActivity">

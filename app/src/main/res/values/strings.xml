@@ -10,4 +10,7 @@
     <string name="listMeds">List Medications</string>
     <string name="medicationName">Medication</string>
     <string name="amount">Amount</string>
+    <string name="blsButton">Blood Sugar Levels</string>
+    <string name="bpButton">Blood Pressure</string>
+    <string name="vitalBanner">Blood Pressures and Blood Sugars</string>
 </resources>
