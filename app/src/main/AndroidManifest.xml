@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticsInfo">
-        <activity android:name=".bloodPressure"></activity>
+        <activity android:name=".BloodPressure"></activity>
         <activity android:name=".BLS" />
         <activity android:name=".Vitals" />
         <activity android:name=".ReportPreviewActivity">

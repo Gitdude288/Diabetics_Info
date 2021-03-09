@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class bloodPressure extends AppCompatActivity {
+public class BloodPressure extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
