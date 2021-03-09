@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void goToVitals(View view) {
+        Intent intent = new Intent(this, Vitals.class);
+        startActivity(intent);
+    }
 
     public void goToMedications(View view) {
         Intent intent = new Intent(this, Medications.class);
