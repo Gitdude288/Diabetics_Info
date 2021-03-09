@@ -13,7 +13,7 @@ public class Exercise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
     }
-    public void Back(View view){
+    public void goBack(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

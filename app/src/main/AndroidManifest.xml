@@ -9,14 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticsInfo">
-        <activity android:name=".BloodPressure"></activity>
-        <activity android:name=".BSL" />
-        <activity android:name=".Vitals" />
-        <activity android:name=".ReportPreviewActivity">
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".BloodPressure">
+            android:parentActivityName=".Vitals">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Vitals" />
+        </activity>
+        <activity android:name=".BSL" >
+            android:parentActivityName=".Vitals">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Vitals" />
+        </activity>
+        <activity android:name=".Vitals">
+            android:parentActivityName=".MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".ReportPreviewActivity">
+            android:parentActivityName=".GenerateReportActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GenerateReportActivity" />
         </activity>
         <activity
             android:name=".GenerateReportActivity"
