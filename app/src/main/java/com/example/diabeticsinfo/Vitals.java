@@ -15,6 +15,11 @@ public class Vitals extends AppCompatActivity {
 
     }
 
+    public void goToBloodSugarLevel(View view) {
+        Intent intent = new Intent(this, BSL.class);
+        startActivity(intent);
+    }
+
     public void goToBloodPressure(View view) {
         Intent intent = new Intent(this, BloodPressure.class);
         startActivity(intent);

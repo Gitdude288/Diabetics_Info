@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticsInfo">
         <activity android:name=".BloodPressure"></activity>
-        <activity android:name=".BLS" />
+        <activity android:name=".BSL" />
         <activity android:name=".Vitals" />
         <activity android:name=".ReportPreviewActivity">
             android:parentActivityName=".MainActivity">
