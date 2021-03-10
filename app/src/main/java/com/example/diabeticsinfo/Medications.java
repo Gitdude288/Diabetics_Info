@@ -50,19 +50,23 @@ public class Medications extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.medicationName);
         EditText editText2 = (EditText) findViewById(R.id.amount);
         String med = editText.getText().toString();
-        int amt = Integer.parseInt(editText2.getText().toString());
+        String amtText = editText2.getText().toString();
+        int amt = 0;
+        if (amtText != null){
+            amt = Integer.parseInt(editText2.getText().toString());
+        }
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        //SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(MEDNAME, med);
-        editor.putInt(MEDAMOUNT, amt);
-        editor.apply();
+        if (med != null && amt > 0 ){
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(MEDNAME, med);
+            editor.putInt(MEDAMOUNT, amt);
+            editor.apply();
+            Log.i("addMedication","successfully added your medication");
+        }else {
+            Log.e("addMedication","invalid input, did not add medication");
+        }
 
-        /*SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(getString(R.string.saved_high_score_key), newHighScore);
-        editor.apply();*/
     }
 
     public void getMedications(View view) {
