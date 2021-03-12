@@ -1,18 +1,19 @@
 package medication_prescription_handler;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 
 public class Main {
 
-    public static List<SingleMedicationPrescriptionHandler> generateSingleHandlerList(){
+    public static List<SingleMedicationPrescriptionHandler> generateSingleHandlerList() throws Exception {
         List<SingleMedicationPrescriptionHandler> handlerList = new ArrayList<>();
+
+        char letter = 'A';
 
         for(int i = -1; i < 11; i+= 2)
         {
@@ -24,24 +25,23 @@ public class Main {
             int day = prescriptionExpiration.getDayOfMonth();
 
             SingleMedicationPrescriptionHandler tempHandler = new SingleMedicationPrescriptionHandler();
-            tempHandler.setPrescriptionName("med " + i);
-            try {
-                tempHandler.setPrescriptionExpiration(year, month, day);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            tempHandler.set_prescriptionName("med" + letter);
+            letter++;
+            tempHandler.setPrescriptionExpiration(year, month, day);
+
             handlerList.add(tempHandler);
         }
 
         return handlerList;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         //Testing PrescriptionExpirationAlert
         System.out.println("Testing PrescriptionExpirationAlert-------------------------------------------------");
         System.out.println();
 
+        //Test 1    Make sure 1 year, 1 month, 1 day prints with no plural words
         LocalDate today = LocalDate.now();
         LocalDate alertDate = LocalDate.now();
         alertDate = alertDate.plusYears(1);
@@ -53,6 +53,7 @@ public class Main {
         PrescriptionExpirationAlert testExpirationAlert1 = new PrescriptionExpirationAlert(timeLeft,"test1");
         assertTrue( "Incorrect message from test1",testExpirationAlert1.sendAlert().equals("Your prescription for test1 expires in 1 year, 1 month, 1 day"));
 
+        //Test 2    Make sure 2 years, 2 months, 2 days prints with all plural words
         alertDate = LocalDate.now();
         alertDate = alertDate.plusYears(2);
         alertDate = alertDate.plusMonths(2);
@@ -63,6 +64,7 @@ public class Main {
         PrescriptionExpirationAlert testExpirationAlert2 = new PrescriptionExpirationAlert(timeLeft,"test2");
         assertTrue(  "Incorrect message from test2",testExpirationAlert2.sendAlert().equals("Your prescription for test2 expires in 2 years, 2 months, 2 days"));
 
+        //Test 3    Make sure -1 year, -1 month, -1 day prints overdue message with no plural words
         alertDate = LocalDate.now();
         alertDate = alertDate.minusYears(1);
         alertDate = alertDate.minusMonths(1);
@@ -73,6 +75,7 @@ public class Main {
         PrescriptionExpirationAlert testExpirationAlert3 = new PrescriptionExpirationAlert(timeLeft,"test3");
         assertTrue( "Incorrect message from test3",testExpirationAlert3.sendAlert().equals("Your prescription for test3 is overdue by 1 year, 1 month, 1 day!"));
 
+        //Test 4    Make sure -2 years, -2 months, -2 days prints overdue message with all plural words
         alertDate = LocalDate.now();
         alertDate = alertDate.minusYears(2);
         alertDate = alertDate.minusMonths(2);
@@ -83,20 +86,72 @@ public class Main {
         PrescriptionExpirationAlert testExpirationAlert4 = new PrescriptionExpirationAlert(timeLeft,"test4");
         assertTrue( "Incorrect message from test4",testExpirationAlert4.sendAlert().equals("Your prescription for test4 is overdue by 2 years, 2 months, 2 days!"));
 
+        //Test 5    Make sure 0 years, 0 months, 0 days prints expires today message
+        alertDate = LocalDate.now();
 
-        //Testing invalid input for handler
-        System.out.println("Testing invalid input for handler---------------------------------------------------");
+        timeLeft = Period.between(today, alertDate);
+
+        PrescriptionExpirationAlert testExpirationAlert5 = new PrescriptionExpirationAlert(timeLeft,"test5");
+        assertTrue( "Incorrect message from test5",testExpirationAlert5.sendAlert().equals("Your prescription for test5 expires today!"));
+
+
+        SingleMedicationPrescriptionHandler badInputHandler = new SingleMedicationPrescriptionHandler();
+
+        //setting Invalid prescriptionName
+        System.out.println("Testing invalid input for prescrirptionName-----------------------------------------");
         System.out.println();
 
-        SingleMedicationPrescriptionHandler testHandler = new SingleMedicationPrescriptionHandler();
+        try{
+            String nullString = new String();
+            badInputHandler.set_prescriptionName(nullString);
+        }catch (Exception e){
+            assertTrue("expected different error message for setting empty/blank prescription name",e.getMessage().equals("Prescription Name must be filled out"));
+        }
+        assertTrue(badInputHandler.getPrescriptionName() == null);
+
+        try{
+            badInputHandler.set_prescriptionName("");
+        }catch (Exception e){
+            assertTrue("expected different error message for setting empty/blank prescription name",e.getMessage().equals("Prescription Name must be filled out"));
+        }
+        assertTrue(badInputHandler.getPrescriptionName() == null);
+
+        try{
+            badInputHandler.set_prescriptionName("          ");
+        }catch (Exception e){
+            assertTrue("expected different error message for setting empty/blank prescription name",e.getMessage().equals("Prescription Name must be filled out"));
+        }
+        assertTrue(badInputHandler.getPrescriptionName() == null);
+
+        try{
+            badInputHandler.set_prescriptionName("abc");
+        }catch (Exception e){
+            assertTrue("expected different error message for setting prescription name with too few characters",e.getMessage().equals("Prescription Name must be at least four letters long"));
+        }
+        assertTrue(badInputHandler.getPrescriptionName() == null);
+
+        try{
+            badInputHandler.set_prescriptionName("abc1!");
+        }catch (Exception e){
+            assertTrue("expected different error message for setting prescription name with too non-letter characters",e.getMessage().equals("Prescription Name must only contain letters"));
+        }
+        assertTrue(badInputHandler.getPrescriptionName() == null);
+
+        //Testing invalid input for prescriptionExpiration
+        System.out.println("Testing invalid input for prescriptionExpiration------------------------------------");
+        System.out.println();
 
         //adding bad date
         try {
-            testHandler.setPrescriptionExpiration(2021, 3, 33);
+            badInputHandler.setPrescriptionExpiration(2021, 3, 33);
         } catch (Exception e) {
             assertTrue("expected different error message for adding bad date",e.getMessage().equals("Invalid date"));
         }
-        assertTrue(testHandler.getPrescriptionExpiration() == null);
+        assertTrue(badInputHandler.getPrescriptionExpiration() == null);
+
+        //Generating list of single handlers and running general handler
+        System.out.println("Generating list of single handlers and running general handler----------------------");
+        System.out.println();
 
         List<SingleMedicationPrescriptionHandler> list = generateSingleHandlerList();
 
