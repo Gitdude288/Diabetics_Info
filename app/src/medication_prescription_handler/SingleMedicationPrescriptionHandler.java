@@ -14,6 +14,10 @@ public class SingleMedicationPrescriptionHandler {
     private int _milligramDosagePrescribed;
     private int _pillsRemainingInBottle;
 
+    public SingleMedicationPrescriptionHandler(){
+        _takeMedicationThisManyTimesADay = 1;
+    }
+
     public String getPrescriptionName(){
         return _prescriptionName;
     }
@@ -25,10 +29,48 @@ public class SingleMedicationPrescriptionHandler {
     public int getMilligramDosagePrescribed(){return _milligramDosagePrescribed;}
     public int getPillsRemainingInBottle(){return _pillsRemainingInBottle;}
 
-    public void setTakeMedicationThisManyTimesADay(int takeMedicationThisManyTimesADay){}
-    public void setMilligramDosageInASinglePill(int milligramDosageInaSinglePill){}
-    public void setMilligramDosagePrescribed(int milligramDosagePrescribed){}
-    public void setPillsRemainingInBottle(int pillsRemainingInBottle){}
+    public void setTakeMedicationThisManyTimesADay(int takeMedicationThisManyTimesADay) throws Exception{
+        if(takeMedicationThisManyTimesADay < 1){
+            MedHandlerException takeMedLessThanOnceADay = new MedHandlerException("Number of times a day to take medication must be greater than zero");
+            System.out.println(takeMedLessThanOnceADay.getMessage());
+            System.out.println();
+            throw takeMedLessThanOnceADay;
+        } else {
+            _takeMedicationThisManyTimesADay = takeMedicationThisManyTimesADay;
+        }
+    }
+
+    public void setMilligramDosageInASinglePill(int milligramDosageInASinglePill) throws Exception{
+        if(milligramDosageInASinglePill < 1){
+            MedHandlerException singlePillDosageIsLessThanOneMg = new MedHandlerException("Dosage of a single pill must be greater than zero");
+            System.out.println(singlePillDosageIsLessThanOneMg.getMessage());
+            System.out.println();
+            throw singlePillDosageIsLessThanOneMg;
+        } else {
+            _milligramDosageInASinglePill = milligramDosageInASinglePill;
+        }
+    }
+
+    public void setMilligramDosagePrescribed(int milligramDosagePrescribed) throws Exception{
+        if(milligramDosagePrescribed < 1){
+            MedHandlerException prescriptionDosageIsLessThanOneMg = new MedHandlerException("Prescribed Dosage must be greater than zero");
+            System.out.println(prescriptionDosageIsLessThanOneMg.getMessage());
+            System.out.println();
+            throw prescriptionDosageIsLessThanOneMg;
+        } else {
+            _milligramDosagePrescribed = milligramDosagePrescribed;
+        }
+    }
+    public void setPillsRemainingInBottle(int pillsRemainingInBottle) throws Exception{
+        if(pillsRemainingInBottle < 0){
+            MedHandlerException pillCountIsLessThanZero = new MedHandlerException("Pills remaining can't be negative");
+            System.out.println(pillCountIsLessThanZero.getMessage());
+            System.out.println();
+            throw pillCountIsLessThanZero;
+        } else {
+            _pillsRemainingInBottle = pillsRemainingInBottle;
+        }
+    }
 
     public void set_prescriptionName(String prescriptionName) throws Exception{
 
