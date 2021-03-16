@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class GenerateReportActivity extends AppCompatActivity {
@@ -18,16 +19,15 @@ public class GenerateReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_report);
 
-        Calendar today = Calendar.getInstance();
-        Calendar fromDate = Calendar.getInstance();
-        fromDate.add(Calendar.DAY_OF_MONTH, -90);
+        LocalDate today = LocalDate.now();
+        LocalDate fromDate = today.minusDays(90);
 
-        String fromMM = String.valueOf(fromDate.get(Calendar.MONTH) + 1);
-        String fromDD = String.valueOf(fromDate.get(Calendar.DAY_OF_MONTH));
-        String fromYY = String.valueOf(fromDate.get(Calendar.YEAR));
-        String toMM = String.valueOf(today.get(Calendar.MONTH) + 1);
-        String toDD = String.valueOf(today.get(Calendar.DAY_OF_MONTH));
-        String toYY = String.valueOf(today.get(Calendar.YEAR));
+        String fromMM = String.valueOf(fromDate.getMonthValue());
+        String fromDD = String.valueOf(fromDate.getDayOfMonth());
+        String fromYY = String.valueOf(fromDate.getYear());
+        String toMM = String.valueOf(today.getMonthValue());
+        String toDD = String.valueOf(today.getDayOfMonth());
+        String toYY = String.valueOf(today.getYear());
 
         EditText fromMonth = findViewById(R.id.fromMonth);
         EditText fromDay = findViewById(R.id.fromDay);
