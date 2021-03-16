@@ -149,10 +149,10 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="/"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/fromDay"
+        app:layout_constraintStart_toEndOf="@+id/toDay"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <EditText
@@ -163,7 +163,7 @@
         android:ems="10"
         android:hint="yyyy"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <TextView
@@ -214,10 +214,10 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="/"
-        app:layout_constraintBottom_toBottomOf="@+id/fromYear"
-        app:layout_constraintStart_toEndOf="@+id/toDay"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/fromDay"
         app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <EditText
@@ -228,7 +228,7 @@
         android:ems="10"
         android:hint="yyyy"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/fromYear" />
 
     <Button
