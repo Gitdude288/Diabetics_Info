@@ -99,19 +99,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/report90day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:onClick="goTo90DayReport"
-        android:text="90 day report"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch4" />
-
     <EditText
-        android:id="@+id/inputMonth"
+        android:id="@+id/fromMonth"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
@@ -120,7 +109,7 @@
         android:hint="mm"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <TextView
         android:id="@+id/textView8"
@@ -131,8 +120,8 @@
         android:text="/"
         android:textAlignment="viewStart"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/inputMonth"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintStart_toEndOf="@+id/fromMonth"
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <TextView
         android:id="@+id/textView9"
@@ -143,10 +132,10 @@
         android:text="from:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/fromDay"
         android:layout_width="32dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -154,7 +143,7 @@
         android:hint="dd"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <TextView
         android:id="@+id/textView10"
@@ -163,19 +152,19 @@
         android:layout_marginTop="24dp"
         android:text="/"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintStart_toEndOf="@+id/fromDay"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="32dp"
+        android:id="@+id/fromYear"
+        android:layout_width="64dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="yy"
+        android:hint="yyyy"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/report90day" />
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <TextView
         android:id="@+id/textView11"
@@ -189,7 +178,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/toMonth"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="54dp"
@@ -198,7 +187,7 @@
         android:hint="mm"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/inputMonth" />
+        app:layout_constraintTop_toBottomOf="@+id/fromMonth" />
 
     <TextView
         android:id="@+id/textView12"
@@ -207,11 +196,11 @@
         android:layout_marginTop="32dp"
         android:text="/"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName4"
+        app:layout_constraintStart_toEndOf="@+id/toMonth"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/toDay"
         android:layout_width="32dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -219,7 +208,7 @@
         android:hint="dd"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/fromDay" />
 
     <TextView
         android:id="@+id/textView13"
@@ -227,19 +216,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="/"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName5"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintBottom_toBottomOf="@+id/fromYear"
+        app:layout_constraintStart_toEndOf="@+id/toDay"
+        app:layout_constraintTop_toBottomOf="@+id/switch4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
-        android:layout_width="32dp"
+        android:id="@+id/toYear"
+        android:layout_width="64dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="yy"
+        android:hint="yyyy"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/fromYear" />
 
     <Button
         android:id="@+id/button10"
@@ -247,7 +237,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:onClick="goToCustomDuratioinReport"
-        android:text="custom duration report"
+        android:text="Report Preview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
