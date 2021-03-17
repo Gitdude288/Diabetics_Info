@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class GenerateReportActivity extends AppCompatActivity {
 
@@ -49,12 +46,7 @@ public class GenerateReportActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goTo90DayReport(View view) {
-        Intent intent = new Intent(this, ReportPreviewActivity.class);
-        startActivity(intent);
-    }
-
-    public void goToCustomDuratioinReport(View view) {
+    public void goToReportPreview(View view) {
         Intent intent = new Intent(this, ReportPreviewActivity.class);
         startActivity(intent);
     }
