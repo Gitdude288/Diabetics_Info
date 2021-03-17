@@ -3,6 +3,12 @@ package com.example.diabeticsinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Keeps track of the user's medication. It has a list of strings
+ * called medicine and a list of ints called dosages.
+ * @version 1.0
+ * @author Matt
+ * */
 public class Medicine {
 
     public List<String> medicine = new ArrayList<String>();
