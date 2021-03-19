@@ -1,5 +1,6 @@
 package com.example.diabeticsinfo;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -141,5 +143,31 @@ public class Medications extends AppCompatActivity {
         }
 
         return m;
+    }
+
+    /***
+     * This is the medicine alert constructor.
+     * @param v the View screen of the device
+     * @param <title> is the title of the notification
+     * @param <message> is the message to appear in notifications
+     * @author Nate Hoskins
+     *
+     */
+    public <title, message> void medTimeAlert(View v, String title, String message) {
+        Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_time_not)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build();
+
+    }
+    public <title, message> void medWarningAlert(View v, String title, String message){
+        Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_warning_not)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build();
     }
 }
