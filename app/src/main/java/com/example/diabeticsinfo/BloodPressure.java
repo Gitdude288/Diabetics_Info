@@ -32,6 +32,13 @@ public class BloodPressure extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure);
+
+        try {
+            bp = getBloodPressureData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        listBloodPressure();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
