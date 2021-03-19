@@ -7,7 +7,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicationPrescriptionGeneralHandler {
+public class MedicationPrescriptionGeneralHandler implements Runnable{
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
     private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;
 
