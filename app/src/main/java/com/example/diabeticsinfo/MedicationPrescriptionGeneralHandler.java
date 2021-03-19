@@ -212,9 +212,8 @@ public class MedicationPrescriptionGeneralHandler implements Runnable{
             int x = 1;
             for(String message: masterListOfMessages){
                 //hi Nathan! do your thing!!!
-                Notifier.sendOnHigh(View,"Meds",message,x);
+                //Notifier.sendOnHigh(View,"Meds",message,x);
                 x +=1;
-                System.out.println();
             }
         }
     }
