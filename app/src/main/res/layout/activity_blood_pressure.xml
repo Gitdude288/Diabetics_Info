@@ -37,10 +37,8 @@
         android:id="@+id/dInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="582dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sInput" />
@@ -58,7 +56,6 @@
         app:layout_constraintEnd_toStartOf="@+id/dInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slLabel" />
-
     <Button
         android:id="@+id/bpSave"
         android:layout_width="wrap_content"
