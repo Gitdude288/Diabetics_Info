@@ -24,22 +24,26 @@ public class BSL extends AppCompatActivity {
      * This is the Vitals alert constructor.
      * @param v the View screen of the device
      * @param <title> is the title of the notification
-     * @param <message> is the message to appear in notification
-     * @param <time> is a boolean, for if the message is based on a time like taking morning meds
+     * @param <message> is the message to appear in notifications
      * @author Nate Hoskins
      *
      */
-    public <title, message, time> void vitalAlert(View v, String title, String message, Boolean time){
-
+    public <title, message> void vitalTimeAlert(View v, String title, String message) {
         Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
                 .setContentTitle(title)
-                .setContentText(message);
-        if(time){
-            ((NotificationCompat.Builder) notification).setSmallIcon(R.drawable.ic_time_not);
-        }
-        else{
-            ((NotificationCompat.Builder) notification).setSmallIcon(R.drawable.ic_warning_not);
-        }
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_time_not)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build();
+
+    }
+    public <title, message> void vitalWarningAlert(View v, String title, String message){
+        Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_warning_not)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build();
     }
 
 }
