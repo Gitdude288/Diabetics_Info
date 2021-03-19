@@ -36,7 +36,7 @@ public class BSL extends AppCompatActivity {
      * @author Nate Hoskins
      *
      */
-    public <title, message> void vitalTimeAlert(View v, String title, String message) {
+    /*public <title, message> void vitalTimeAlert(View v, String title, String message) {
         Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
                 .setContentTitle(title)
                 .setContentText(message)
@@ -52,6 +52,6 @@ public class BSL extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_warning_not)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .build();
-    }
+    }*/
 
 }

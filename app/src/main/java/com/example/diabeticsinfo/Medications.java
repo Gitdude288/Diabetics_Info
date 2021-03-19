@@ -153,7 +153,7 @@ public class Medications extends AppCompatActivity {
      * @author Nate Hoskins
      *
      */
-    public <title, message> void medTimeAlert(View v, String title, String message) {
+    /*public <title, message> void medTimeAlert(View v, String title, String message) {
         Notification notification = new NotificationCompat.Builder(this, MainActivity.CHANNEL_2_ID)
                 .setContentTitle(title)
                 .setContentText(message)
@@ -169,5 +169,5 @@ public class Medications extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_warning_not)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .build();
-    }
+    }*/
 }
