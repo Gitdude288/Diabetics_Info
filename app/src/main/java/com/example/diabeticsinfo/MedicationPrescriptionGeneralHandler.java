@@ -1,11 +1,14 @@
 package com.example.diabeticsinfo;
 
+import android.view.View;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.diabeticsinfo.Notifier;
 
 public class MedicationPrescriptionGeneralHandler {
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
@@ -206,9 +209,11 @@ public class MedicationPrescriptionGeneralHandler {
         masterListOfMessages = tempList;
 
         if(!masterListOfMessages.isEmpty()){
+            int x = 1;
             for(String message: masterListOfMessages){
                 //hi Nathan! do your thing!!!
-                System.out.println(message);
+                Notifier.sendOnHigh(View,"Meds",message,x);
+                x +=1;
                 System.out.println();
             }
         }
