@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.diabeticsinfo.Notifier;
 
-public class MedicationPrescriptionGeneralHandler {
+public class MedicationPrescriptionGeneralHandler implements Runnable{
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
     private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;
 
