@@ -15,7 +15,7 @@ public class Notifier {
         this.notificationManager = notificationManager;
     }
 
-    public <title, text, id> void sendOnHigh(View v, String title, String text, int id){
+    /*public <title, text, id> void sendOnHigh(View v, String title, String text, int id){
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_warning_not)
                 .setContentTitle(title)
@@ -32,5 +32,5 @@ public class Notifier {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
         notificationManager.notify(id, notification);
-    }
+    }*/
 }
