@@ -32,13 +32,20 @@ public class BSL extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_b_l_s);
+
+        try {
+            bl = getBSLData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        listBSL();;
     }
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         getMenuInflater().inflate(R.menu.activity_b_l_s, menu);
         return true;
-    }
+    }*/
 
     public void goBack(View view) {
         Intent intent = new Intent(this, Vitals.class);
