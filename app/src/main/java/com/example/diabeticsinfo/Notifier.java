@@ -17,8 +17,8 @@ public class Notifier {
         this.notificationManager = notificationManager;
     }
 
-    /*public <title, text, id> void sendOnHigh(View v, String title, String text, int id){
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+    public <title, text, id> void sendOnHigh(View v, String title, String text, int id){
+        Notification notification = new NotificationCompat.Builder(v.getContext(), CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_warning_not)
                 .setContentTitle(title)
                 .setContentText(text)
@@ -27,12 +27,12 @@ public class Notifier {
         notificationManager.notify(id, notification);
     }
     public <title, text, id> void sendOnLow(View v, String title, String text, int id){
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+        Notification notification = new NotificationCompat.Builder(v.getContext(), CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_time_not)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
         notificationManager.notify(id, notification);
-    }*/
+    }
 }
