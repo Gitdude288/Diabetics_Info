@@ -38,7 +38,7 @@ public class BSL extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        listBSL();;
+        listBSL();
     }
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu){
