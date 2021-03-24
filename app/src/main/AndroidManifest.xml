@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.diabeticsinfo">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,28 +12,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiabeticsInfo">
-        <activity android:name=".BloodPressure"
+        <activity android:name=".MedicationActivity">
+
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+        <activity
+            android:name=".BloodPressure"
             android:label="Blood Pressure">
             android:parentActivityName=".Vitals">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Vitals" />
         </activity>
-        <activity android:name=".BSL"
+        <activity
+            android:name=".BSL"
             android:label="Blood Sugar Level">
             android:parentActivityName=".Vitals">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Vitals" />
         </activity>
-        <activity android:name=".Vitals"
+        <activity
+            android:name=".Vitals"
             android:label="Vitals">
             android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".ReportPreviewActivity"
+        <activity
+            android:name=".ReportPreviewActivity"
             android:label="Report Preview">
             android:parentActivityName=".GenerateReportActivity">
             <meta-data

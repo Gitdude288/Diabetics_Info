@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToMedicationActivity(View view){
+        Intent intent = new Intent(this, MedicationActivity.class);
+        startActivity(intent);
+    }
+
     public void goToMedications(View view) {
         Intent intent = new Intent(this, Medications.class);
         startActivity(intent);

@@ -65,8 +65,8 @@ public class SingleMedicationPrescriptionHandler {
     }
 
     public void setMaxPillCountInBottle(int maxPillCountInBottle) throws Exception{
-        if(maxPillCountInBottle < 0){
-            Exception maxPillCountIsLessThanZero = new Exception("number of tablets that comes in bottle can't be negative");
+        if(maxPillCountInBottle < 1){
+            Exception maxPillCountIsLessThanZero = new Exception("number of tablets that comes in bottle must be greater than zero");
             throw maxPillCountIsLessThanZero;
         } else {
             _maxPillCountInBottle = maxPillCountInBottle;
@@ -274,21 +274,21 @@ public class SingleMedicationPrescriptionHandler {
         } else if(_prescriptionName == null){
             Exception nullName = new Exception("Must enter prescription name");
             throw nullName;
-        } else if(_prescriptionExpiration == null){
-            Exception nullExpiration = new Exception("Must enter prescription expiration");
-            throw nullExpiration;
+        } else if(_milligramDosageInASingleTablet == 0){
+            Exception enterDosage = new Exception("Must enter milligram dosage in a single tablet");
+            throw enterDosage;
         } else if(_takeThisManyTabletsAtaTime == 0){
             Exception enterNumTablets = new Exception("Must enter number of tablets to take");
             throw enterNumTablets;
         } else if(_takeMedicationThisManyTimesADay == 0){
             Exception enterNumTimesADay = new Exception("Must enter number of times a day to take medication");
             throw enterNumTimesADay;
-        }else if(_milligramDosageInASingleTablet == 0){
-            Exception enterDosage = new Exception("Must enter milligram dosage in a single tablet");
-            throw enterDosage;
         } else if(_maxPillCountInBottle == -1){
             Exception enterTabletsRemaining = new Exception("Must enter number of tablets that come in bottle");
             throw enterTabletsRemaining;
+        } else if(_prescriptionExpiration == null) {
+            Exception nullExpiration = new Exception("Must enter prescription expiration");
+            throw nullExpiration;
         }
 
         return isValid;
