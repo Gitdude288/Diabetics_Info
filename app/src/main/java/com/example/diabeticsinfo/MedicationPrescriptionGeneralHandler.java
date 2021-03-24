@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.diabeticsinfo.Notifier;
 
-public class MedicationPrescriptionGeneralHandler implements Runnable{
+public class MedicationPrescriptionGeneralHandler {
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
     private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;
 
@@ -193,7 +193,7 @@ public class MedicationPrescriptionGeneralHandler implements Runnable{
         }
     }
 
-    public void run(){
+    public List<String> getMessages(){
         List<String> masterListOfMessages = new ArrayList<>();
         masterListOfMessages.add(sendTakePillAlert());
         masterListOfMessages.addAll(sendPrescriptionExpirationAlerts());
@@ -208,14 +208,8 @@ public class MedicationPrescriptionGeneralHandler implements Runnable{
 
         masterListOfMessages = tempList;
 
-        if(!masterListOfMessages.isEmpty()){
-            int x = 1;
-            for(String message: masterListOfMessages){
-                //hi Nathan! do your thing!!!
-                //Notifier.sendOnHigh(View,"Meds",message,x);
-                x +=1;
-            }
-        }
+        return masterListOfMessages;
+
     }
 
 }
