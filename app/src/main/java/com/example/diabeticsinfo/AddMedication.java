@@ -6,6 +6,10 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class AddMedication implements Runnable{
 
     private WeakReference<Activity> _activityRef;

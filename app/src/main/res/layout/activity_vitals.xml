@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toStartOf="@+id/button11"
         app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/reportPreview" />
 
     <Button
         android:id="@+id/button11"
@@ -31,10 +31,10 @@
         android:onClick="goToBloodPressure"
         android:text="@string/bpButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/reportPreview" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/reportPreview"
         android:layout_width="375dp"
         android:layout_height="130dp"
         android:layout_marginStart="16dp"

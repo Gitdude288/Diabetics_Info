@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.diabeticsinfo.Notifier;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class MedicationPrescriptionGeneralHandler {
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
     private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;

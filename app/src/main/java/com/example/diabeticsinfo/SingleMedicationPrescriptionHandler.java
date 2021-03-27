@@ -5,6 +5,10 @@ import java.time.Period;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class SingleMedicationPrescriptionHandler {
     private LocalDate _prescriptionExpiration;
     private String _prescriptionName;

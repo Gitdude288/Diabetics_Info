@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class MedicationActivity extends AppCompatActivity {
 
     MedicationPrescriptionGeneralHandler _generalHandler;

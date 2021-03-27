@@ -2,6 +2,10 @@ package com.example.diabeticsinfo;
 
 import java.time.Period;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class PrescriptionExpirationAlert {
     private Period _timeLeft;
     private String _prescriptionName;
