@@ -18,11 +18,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Date;
 
 public class Exercise extends AppCompatActivity {
 
     public ExerciseData ed = new ExerciseData();
-    public String fileName = "exercise.txt";
+    public String fileName = "ExerciseFinal.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,14 @@ public class Exercise extends AppCompatActivity {
 
     public void addExercise(View view) throws IOException {
         //Get medication name and amount that user entered
-        EditText editText = (EditText) findViewById(R.id.textView5);
+        EditText month = (EditText) findViewById(R.id.month2);
+        EditText day = (EditText) findViewById(R.id.day2);
+        EditText year = (EditText) findViewById(R.id.year2);
         EditText editText2 = (EditText) findViewById(R.id.textView6);
-        String date = editText.getText().toString();
+        int m = Integer.parseInt(month.getText().toString());
+        int d = Integer.parseInt(day.getText().toString());
+        int y = Integer.parseInt(year.getText().toString());
+        Date date = new Date(y - 1900, m - 1, d);
         String min = editText2.getText().toString();
         int amt = 0;
         if (min != null){

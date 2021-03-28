@@ -7,13 +7,40 @@
     tools:context=".Exercise">
 
     <EditText
-        android:id="@+id/textView5"
-        android:layout_width="132dp"
+        android:id="@+id/year2"
+        android:layout_width="64dp"
         android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:hint="Today's date"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="yyyy"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/day2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/month2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="mm"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/day"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/day2"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="dd"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/month2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -45,6 +72,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
 
@@ -55,6 +83,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
 
