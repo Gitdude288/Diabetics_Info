@@ -21,12 +21,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
+import java.sql.Date;
 
 public class BSL extends AppCompatActivity {
 
     public BSLMeasurement bl = new BSLMeasurement();
-    public String fileName = "bsl.txt";
+    public String fileName = "bslTest.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,15 @@ public class BSL extends AppCompatActivity {
         //Get medication name and amount that user entered
         //EditText editText = (EditText) findViewById(R.id.textView5);
         EditText editText2 = (EditText) findViewById(R.id.blsReading);
-        Date date = new Date(2020, 12, 31);
+        EditText month = (EditText) findViewById(R.id.month3);
+        EditText day = (EditText) findViewById(R.id.day3);
+        EditText year = (EditText) findViewById(R.id.year3);
+
+        int m = Integer.parseInt(month.getText().toString());
+        int d = Integer.parseInt(day.getText().toString());
+        int y = Integer.parseInt(year.getText().toString());
+        java.sql.Date date = new Date(y - 1900, m - 1, d);
+
         String min = editText2.getText().toString();
         int amt = -1;
         if (min != null){
