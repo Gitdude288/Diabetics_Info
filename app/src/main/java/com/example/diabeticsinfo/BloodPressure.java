@@ -20,13 +20,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
+import java.sql.Date;
 
 public class BloodPressure extends AppCompatActivity {
 
     private Object Menu;
     public BloodPressureMeasurement bp = new BloodPressureMeasurement();
-    public String fileName = "bloodpressure.txt";
+    public String fileName = "bloodpressureTest.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,16 @@ public class BloodPressure extends AppCompatActivity {
         //Get medication name and amount that user entered
         EditText editText = (EditText) findViewById(R.id.sInput);
         EditText editText2 = (EditText) findViewById(R.id.dInput);
-        Date date = new Date(2020, 12, 31);
+
+        EditText month = (EditText) findViewById(R.id.month4);
+        EditText day = (EditText) findViewById(R.id.day4);
+        EditText year = (EditText) findViewById(R.id.year4);
+
+        int m = Integer.parseInt(month.getText().toString());
+        int d = Integer.parseInt(day.getText().toString());
+        int y = Integer.parseInt(year.getText().toString());
+        java.sql.Date date = new Date(y - 1900, m - 1, d);
+
         String max = editText.getText().toString();
         String min = editText2.getText().toString();
         int amt = -1;

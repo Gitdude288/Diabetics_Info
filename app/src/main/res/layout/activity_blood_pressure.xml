@@ -6,71 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".BloodPressure">
 
-    <TextView
-        android:id="@+id/slLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginBottom="644dp"
-        android:labelFor="@id/sInput"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/year4"
+        android:layout_width="64dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="yyyy"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/day4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/month4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="mm"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/day"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/slLabel" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/day4"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="dd"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/month4"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/sInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="627dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="SLN"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/slLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/dInput"
-        android:layout_width="wrap_content"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="DLN"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sInput" />
-
-    <TextView
-        android:id="@+id/dLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="594dp"
-        android:labelFor="@id/dInput"
-        android:text="@string/dlLabel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slLabel" />
 
     <Button
         android:id="@+id/bpSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="502dp"
+        android:layout_marginEnd="32dp"
         android:onClick="addBloodPressure"
         android:text="@string/saveButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dInput" />
+        app:layout_constraintTop_toBottomOf="@+id/dInput"
+        app:layout_constraintVertical_bias="0.086" />
 
     <Button
         android:id="@+id/button"
@@ -88,8 +101,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpSave" />
 
@@ -97,9 +111,10 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpSave" />
 
@@ -107,9 +122,10 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/bpSave" />
 
