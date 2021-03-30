@@ -83,6 +83,9 @@ public class Exercise extends AppCompatActivity {
         }
 
     }
+    public void removeExercise(View view) throws IOException {
+
+    }
 
     public ExerciseData getExerciseData() throws IOException {
         File logFile = new File(fileName);
