@@ -84,7 +84,16 @@ public class Exercise extends AppCompatActivity {
 
     }
     public void removeExercise(View view) throws IOException {
-
+        EditText month = (EditText) findViewById(R.id.month2);
+        EditText day = (EditText) findViewById(R.id.day2);
+        EditText year = (EditText) findViewById(R.id.year2);
+        EditText editText2 = (EditText) findViewById(R.id.textView6);
+        int m = Integer.parseInt(month.getText().toString());
+        int d = Integer.parseInt(day.getText().toString());
+        int y = Integer.parseInt(year.getText().toString());
+        Date date = new Date(y - 1900, m - 1, d);
+        String min = editText2.getText().toString();
+        int amt = 0;
     }
 
     public ExerciseData getExerciseData() throws IOException {
