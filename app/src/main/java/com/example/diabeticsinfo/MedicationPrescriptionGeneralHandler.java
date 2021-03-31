@@ -132,11 +132,12 @@ public class MedicationPrescriptionGeneralHandler {
 
     }
 
-    public void takePill(String prescriptionName, int dosage){
+    public void takePill(String prescriptionName, int dosage, LocalDateTime timeTaken){
         for(SingleMedicationPrescriptionHandler handler: prescriptionList){
             if(     handler.getPrescriptionName().equals(prescriptionName) &&
                     handler.getMilligramDosageInASingleTablet() == dosage)
             {
+                handler.takePill(timeTaken);
                 int pillsBeingTaken = handler.getTakeThisManyTabletsAtaTime();
                 int pillsInBottle = handler.getPillsRemainingInBottle();
                 int pillsLeft = pillsInBottle - pillsBeingTaken;

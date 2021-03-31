@@ -23,14 +23,20 @@ public class MedicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication);
 
-        //This is where we will eventually Load the MedicationPrescriptionGeneralHandler from file
-        //But for now, we'll just use a blank general med handler
         _generalHandler = new MedicationPrescriptionGeneralHandler();
+
+        try {
+            SaveLoad saveLoad = new SaveLoad(this);
+            _generalHandler = saveLoad.loadMedicationList();
+        }catch (Exception e){
+
+        }
+
 
     }
 
     public void goToList(View view) {
-        Intent intent = new Intent(this, MedicationsList.class);
+        Intent intent = new Intent(this, MedicationListActivity.class);
         startActivity(intent);
     }
 

@@ -1,6 +1,7 @@
 package com.example.diabeticsinfo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -205,10 +206,12 @@ public class AddMedication implements Runnable{
 
                 });
 
-                //Save: This is where you save the general med handler as a json and overwrite the old file
+                SaveLoad saveLoad = new SaveLoad(_activity);
+                saveLoad.saveMedicationList(_generalHandler);
 
             } catch (Exception e){
                 makeToast(e.getMessage());
+                editMedicationName.setText(e.getMessage());
             }
         }
 

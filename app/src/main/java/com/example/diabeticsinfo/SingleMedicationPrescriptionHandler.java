@@ -1,7 +1,10 @@
 package com.example.diabeticsinfo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,11 +24,13 @@ public class SingleMedicationPrescriptionHandler {
 
     LocalDate _datePillCountAlertWasLastSent;
     LocalDate _dateExpirationAlertWasLastSent;
+    private List<LocalDateTime> allTheTimesYouTookYourPills;
 
     public SingleMedicationPrescriptionHandler(){
         _maxPillCountInBottle = -1;
         _pillsRemainingInBottle = -1;
         _refillsRemaining = -1;
+        allTheTimesYouTookYourPills = new ArrayList<>();
     }
 
     public String getPrescriptionName(){
@@ -40,6 +45,14 @@ public class SingleMedicationPrescriptionHandler {
     public int getMaxPillCountInBottle(){return _maxPillCountInBottle;}
     public int getPillsRemainingInBottle(){return _pillsRemainingInBottle;}
     public int getRefillsRemaining(){return _refillsRemaining;}
+    public List<LocalDateTime> getAllTheTimesYouTookYourPills(){
+        List<LocalDateTime> clone = new ArrayList<>();
+        for(LocalDateTime timeTaken: allTheTimesYouTookYourPills){
+            clone.add(timeTaken);
+        }
+
+        return clone;
+    }
 
     public void setTakeMedicationThisManyTimesADay(int takeMedicationThisManyTimesADay) throws Exception{
         if(takeMedicationThisManyTimesADay < 1){
@@ -137,8 +150,30 @@ public class SingleMedicationPrescriptionHandler {
         _dateExpirationAlertWasLastSent = dateExpirationAlertWasLastSent;
     }
 
+    public void takePill(LocalDateTime timeYouTookPill){
+        allTheTimesYouTookYourPills.add(timeYouTookPill);
+    }
+
+    public void deleteTimeYouTookPill(LocalDateTime timeYouWantDeleted){
+        List<LocalDateTime> temp = new ArrayList<>();
+
+        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
+            if(timeYouTookPill.equals(timeYouWantDeleted)){
+                // do nothing
+            } else{
+                temp.add(timeYouTookPill);
+            }
+        }
+
+        allTheTimesYouTookYourPills = temp;
+    }
+
     public SingleMedicationPrescriptionHandler clone() {
         SingleMedicationPrescriptionHandler clone = new SingleMedicationPrescriptionHandler();
+
+        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
+            clone.takePill(timeYouTookPill);
+        }
 
         try {
             clone.setPrescriptionName(_prescriptionName);

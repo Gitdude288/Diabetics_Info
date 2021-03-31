@@ -47,7 +47,7 @@ public class GenerateReportActivity extends AppCompatActivity {
         toYear.setText(toYY);
     }
 
-    public void goToReportPreview(View view) {
+    public void goToReportPreview(View view){
 
         EditText fromMonth = findViewById(R.id.fromMonth);
         EditText fromDay = findViewById(R.id.fromDay);
@@ -70,6 +70,11 @@ public class GenerateReportActivity extends AppCompatActivity {
 
             fromDate = LocalDate.of(fromYYYY, fromMM, fromDD);
             toDate = LocalDate.of(toYYYY, toMM, toDD);
+
+            if(fromDate.isAfter(toDate)){
+                datesAreGood = false;
+                Toast.makeText(this, "From date must be before to date", Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e){
             datesAreGood = false;
             Toast.makeText(this, "To and from dates must be filled out correctly", Toast.LENGTH_SHORT).show();
@@ -89,7 +94,7 @@ public class GenerateReportActivity extends AppCompatActivity {
             includeInPdf.setIncludeBloodPressure(includeBloodPressure);
             includeInPdf.setIncludeExercise(includeExercise);
 
-            PdfGenerator pdfGenerator = new PdfGenerator();
+            PdfGenerator pdfGenerator = new PdfGenerator(this);
             pdfGenerator.setFromDate(fromDate);
             pdfGenerator.setToDate(toDate);
             pdfGenerator.setIncludeInPdf(includeInPdf);
