@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -47,7 +48,7 @@ public class GenerateReportActivity extends AppCompatActivity {
         toYear.setText(toYY);
     }
 
-    public void goToReportPreview(View view){
+    public void goToReportPreview(View view) throws IOException {
 
         EditText fromMonth = findViewById(R.id.fromMonth);
         EditText fromDay = findViewById(R.id.fromDay);
