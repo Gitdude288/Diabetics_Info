@@ -1,12 +1,22 @@
 package com.example.diabeticsinfo;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
+import java.sql.Date;
 
 /**
  * @author Jaden Myers
@@ -18,6 +28,9 @@ public class PdfGenerator {
     String report = new String();
     LocalDate _toDate = LocalDate.now();
     LocalDate _fromDate = LocalDate.now();
+    String bslFileName = "bslTest.txt";
+    public String bpFileName = "bloodpressureTest.txt";
+    public String exFileName = "ExerciseFinal.txt";
 
     public PdfGenerator(Context context){
         _context = context;
@@ -35,34 +48,73 @@ public class PdfGenerator {
         _fromDate = fromDate;
     }
 
-    public void generateBloodSugarReport(){
+    public void generateBloodSugarReport() throws IOException {
         report += "\nBlood Sugar: \n";
-        report += "day 1 blood sugar reading: ?\n";
-        report += "day 2 blood sugar reading: ?\n";
-        report += "day 3 blood sugar reading: ?\n";
-        report += "day 4 blood sugar reading: ?\n";
-        report += "day 5 blood sugar reading: ?\n";
-        report += "day 6 blood sugar reading: ?\n";
+
+        //bsl object that data gets loaded to
+        BSLMeasurement bsl = new BSLMeasurement();
+        bsl = getBSLData();
+        int days = 1;
+        Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
+        Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+
+        Log.i("start", start.toString());
+        Log.i("end", end.toString());
+
+        for (int i = 0; i < bsl.dates.size(); i++) {
+
+            if (bsl.dates.get(i).after(start) && bsl.dates.get(i).before(end)) {
+                report += "day " + days + " blood sugar reading: ";
+                report += bsl.bsl.get(i) + "\n";
+                days += 1;
+            }
+        }
     }
 
-    public void generateBloodPressureReport(){
+    public void generateBloodPressureReport() throws IOException {
         report += "\nBlood Pressure: \n";
-        report += "day 1 blood pressure reading: ?\n";
-        report += "day 2 blood pressure reading: ?\n";
-        report += "day 3 blood pressure reading: ?\n";
-        report += "day 4 blood pressure reading: ?\n";
-        report += "day 5 blood pressure reading: ?\n";
-        report += "day 6 blood pressure reading: ?\n";
+
+        BloodPressureMeasurement bp = new BloodPressureMeasurement();
+        bp = getBloodPressureData();
+
+        int days = 1;
+        Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
+        Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+
+        Log.i("start", start.toString());
+        Log.i("end", end.toString());
+
+        for (int i = 0; i < bp.dates.size(); i++) {
+
+            if (bp.dates.get(i).after(start) && bp.dates.get(i).before(end)) {
+                report += "day " + days + " blood pressure reading: ";
+                report += bp.bpHigh.get(i) + "/" + bp.bpLow.get(i) + "\n";
+                days += 1;
+            }
+        }
     }
 
-    public void generateExerciseReport(){
+    public void generateExerciseReport() throws IOException {
         report += "\nExercise: \n";
-        report += "day 1 exercise amount: ?\n";
-        report += "day 2 exercise amount: ?\n";
-        report += "day 3 exercise amount: ?\n";
-        report += "day 4 exercise amount: ?\n";
-        report += "day 5 exercise amount: ?\n";
-        report += "day 6 exercise amount: ?\n";
+
+        ExerciseData e = new ExerciseData();
+        e = getExerciseData();
+
+        int days = 1;
+        Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
+        Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+
+        Log.i("start", start.toString());
+        Log.i("end", end.toString());
+
+        for (int i = 0; i < e.dates.size(); i++) {
+
+            if (e.dates.get(i).after(start) && e.dates.get(i).before(end)) {
+                report += "day " + days + " exercised for ";
+                report += e.minutes.get(i) + " minutes \n";
+                days += 1;
+            }
+        }
     }
 
     public boolean generateMedicationReport(){
@@ -119,7 +171,7 @@ public class PdfGenerator {
 
     }
 
-    public String generateReport(){
+    public String generateReport() throws IOException {
 
         long numDays = _toDate.toEpochDay() - _fromDate.toEpochDay();
 
@@ -148,4 +200,125 @@ public class PdfGenerator {
         return report;
     }
 
+    public BSLMeasurement getBSLData() throws IOException {
+        File logFile = new File(bslFileName);
+        if (!logFile.exists())
+        {
+            try
+            {
+                logFile.createNewFile();
+            }
+            catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        FileInputStream file = null;
+        file = _context.openFileInput(bslFileName);
+
+        InputStreamReader isr = new InputStreamReader(file);
+        BufferedReader bfr = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+
+        String reader;
+
+        while ((reader = bfr.readLine()) != null) {
+            sb.append(reader).append("");
+        }
+
+        reader = sb.toString();
+
+        BSLMeasurement bl = new BSLMeasurement();
+
+        Gson gson = new Gson();
+        bl = gson.fromJson(reader, BSLMeasurement.class);
+
+        Log.i("addMedication", bl.getData());
+        file.close();
+
+        return bl;
+    }
+
+    public BloodPressureMeasurement getBloodPressureData() throws IOException {
+        File logFile = new File(bpFileName);
+        if (!logFile.exists())
+        {
+            try
+            {
+                logFile.createNewFile();
+            }
+            catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        FileInputStream file = null;
+        file = _context.openFileInput(bpFileName);
+
+        InputStreamReader isr = new InputStreamReader(file);
+        BufferedReader bfr = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+
+        String reader;
+
+        while ((reader = bfr.readLine()) != null) {
+            sb.append(reader).append("");
+        }
+
+        reader = sb.toString();
+
+        Gson gson = new Gson();
+
+        BloodPressureMeasurement b = new BloodPressureMeasurement();
+        b = gson.fromJson(reader, BloodPressureMeasurement.class);
+
+        Log.i("addBloodPressure", b.getData());
+        file.close();
+
+        return b;
+    }
+
+    public ExerciseData getExerciseData() throws IOException {
+        File logFile = new File(exFileName);
+        if (!logFile.exists())
+        {
+            try
+            {
+                logFile.createNewFile();
+            }
+            catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        FileInputStream file = null;
+        file = _context.openFileInput(exFileName);
+
+        InputStreamReader isr = new InputStreamReader(file);
+        BufferedReader bfr = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+
+        String reader;
+
+        while ((reader = bfr.readLine()) != null) {
+            sb.append(reader).append("");
+        }
+
+        reader = sb.toString();
+
+        Gson gson = new Gson();
+        ExerciseData ed = new ExerciseData();
+        ed = gson.fromJson(reader, ExerciseData.class);
+
+        Log.i("addMedication", ed.getData());
+        file.close();
+
+        return ed;
+    }
 }
