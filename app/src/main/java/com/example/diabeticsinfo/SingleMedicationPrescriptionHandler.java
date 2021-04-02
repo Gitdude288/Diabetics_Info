@@ -81,7 +81,7 @@ public class SingleMedicationPrescriptionHandler {
 
         }
 
-        allTheTimesYouTookYourPills.clear();
+        allTheTimesYouTookYourPills = new ArrayList<>();
 
         for(String tookPillString: stringsAllTheTimesYouTookYourPills){
             int data[] = new int[5];
@@ -91,9 +91,11 @@ public class SingleMedicationPrescriptionHandler {
                 i += 1;
             }
 
+            LocalDateTime timePillWasTaken = LocalDateTime.of(data[0], data[1], data[2], data[3], data[4]);
+            allTheTimesYouTookYourPills.add(timePillWasTaken);
+
             try{
-                LocalDateTime timePillWasTaken = LocalDateTime.of(data[0], data[1], data[2], data[3], data[4]);
-                allTheTimesYouTookYourPills.add(timePillWasTaken);
+
             } catch(Exception e){
 
             }
@@ -126,9 +128,19 @@ public class SingleMedicationPrescriptionHandler {
     public int getMaxPillCountInBottle(){return _maxPillCountInBottle;}
     public int getPillsRemainingInBottle(){return _pillsRemainingInBottle;}
     public int getRefillsRemaining(){return _refillsRemaining;}
+
     public List<LocalDateTime> getAllTheTimesYouTookYourPills(){
         List<LocalDateTime> clone = new ArrayList<>();
         for(LocalDateTime timeTaken: allTheTimesYouTookYourPills){
+            clone.add(timeTaken);
+        }
+
+        return clone;
+    }
+
+    public List<String> getStringsAllTheTimesYouTookYourPills(){
+        List<String> clone = new ArrayList<>();
+        for(String timeTaken: stringsAllTheTimesYouTookYourPills){
             clone.add(timeTaken);
         }
 
@@ -290,16 +302,31 @@ public class SingleMedicationPrescriptionHandler {
 
     public void deleteTimeYouTookPill(LocalDateTime timeYouWantDeleted){
         List<LocalDateTime> temp = new ArrayList<>();
+        boolean didWeActuallyDelete = false;
 
         for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
             if(timeYouTookPill.equals(timeYouWantDeleted)){
-                // do nothing
+                didWeActuallyDelete = true;
             } else{
                 temp.add(timeYouTookPill);
             }
         }
 
+        if(didWeActuallyDelete){
+            try {
+                setPillsRemainingInBottle(getPillsRemainingInBottle() + getTakeThisManyTabletsAtaTime());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         allTheTimesYouTookYourPills = temp;
+        stringsAllTheTimesYouTookYourPills = new ArrayList<>();
+
+        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
+            String timeYouTookPillString = timeYouTookPill.getYear() + "\n" + timeYouTookPill.getMonthValue() + "\n" + timeYouTookPill.getDayOfMonth() + "\n" + timeYouTookPill.getHour() + "\n" + timeYouTookPill.getMinute();
+            stringsAllTheTimesYouTookYourPills.add(timeYouTookPillString);
+        }
     }
 
     public SingleMedicationPrescriptionHandler clone() {
@@ -311,9 +338,9 @@ public class SingleMedicationPrescriptionHandler {
 
         }
 
-        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
-            clone.takePill(timeYouTookPill);
-        }
+        clone.allTheTimesYouTookYourPills =getAllTheTimesYouTookYourPills();
+
+        clone.stringsAllTheTimesYouTookYourPills = getStringsAllTheTimesYouTookYourPills();
 
         try {
             clone.setPrescriptionName(_prescriptionName);
