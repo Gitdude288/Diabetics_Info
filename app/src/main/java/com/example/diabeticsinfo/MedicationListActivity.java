@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +85,23 @@ public class MedicationListActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    public void edit(View view){
+        String prescriptionName = editName.getText().toString();
+        String prescriptionDosageText = editMG.getText().toString();
+        int prescriptionDosage = 0;
+        if(!prescriptionDosageText.isEmpty()){
+            prescriptionDosage = Integer.parseInt(prescriptionDosageText);
+        }
+
+        SingleMedicationPrescriptionHandler medicationBeingEdited = _medHandler.cloneFromList(prescriptionName, prescriptionDosage);
+        if(medicationBeingEdited != null){
+            Intent intent = new Intent(this, EditMedicationActivity.class);
+            intent.putExtra("prescriptionName", medicationBeingEdited.getPrescriptionName());
+            intent.putExtra("prescriptionDosage", medicationBeingEdited.getMilligramDosageInASingleTablet());
+            startActivity(intent);
+        }
     }
 
     public void delete(View view){
