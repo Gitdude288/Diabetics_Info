@@ -78,7 +78,7 @@ public class TakePillActivity extends AppCompatActivity {
         List<LocalDateTime> allTheTimesYouTookYourPills = medicationBeingTaken.getAllTheTimesYouTookYourPills();
 
         for(LocalDateTime timeTookPill: allTheTimesYouTookYourPills){
-            takeMedicationString += timeTookPill.getMonthValue() + "/" + timeTookPill.getDayOfMonth() + "/" + timeTookPill.getYear() + "at ";
+            takeMedicationString += timeTookPill.getMonthValue() + "/" + timeTookPill.getDayOfMonth() + "/" + timeTookPill.getYear() + " at ";
 
             int hour = timeTookPill.getHour();
             boolean isAM = true;

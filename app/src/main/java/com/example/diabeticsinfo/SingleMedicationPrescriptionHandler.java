@@ -56,6 +56,50 @@ public class SingleMedicationPrescriptionHandler {
         stringsAllTheTimesYouTookYourPills = new ArrayList<>();
     }
 
+    private void backUpAllTheTimesYouTookYourPills(){
+
+        stringsAllTheTimesYouTookYourPills = new ArrayList<>();
+
+        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
+            String timeYouTookPillString = timeYouTookPill.getYear() + "\n" + timeYouTookPill.getMonthValue() + "\n" + timeYouTookPill.getDayOfMonth() + "\n" + timeYouTookPill.getHour() + "\n" + timeYouTookPill.getMinute();
+            stringsAllTheTimesYouTookYourPills.add(timeYouTookPillString);
+        }
+    }
+
+    public void putAllTheTimesYouTookYourPillsInChronologicalOrder(){
+        List<LocalDateTime> clone = new ArrayList<>();
+        for(LocalDateTime timeTaken: allTheTimesYouTookYourPills){
+            clone.add(timeTaken);
+        }
+        List<LocalDateTime> orderedList = new ArrayList<>();
+
+
+        while(!clone.isEmpty()){
+            List<LocalDateTime> temp = new ArrayList<>();
+            LocalDateTime earliestDate = LocalDateTime.now();
+            earliestDate = earliestDate.plusYears(100);
+
+            for(LocalDateTime timeTaken: clone){
+                if(timeTaken.isBefore(earliestDate)){
+                    earliestDate = timeTaken;
+                }
+            }
+
+            for(LocalDateTime timeTaken: clone){
+                if(timeTaken.equals(earliestDate)){
+                    orderedList.add(timeTaken);
+                } else{
+                    temp.add(timeTaken);
+                }
+
+                clone = temp;
+            }
+        }
+
+        allTheTimesYouTookYourPills = orderedList;
+        backUpAllTheTimesYouTookYourPills();
+    }
+
     public void recoverAllDates(){
         try{
             _prescriptionExpiration = LocalDate.of(_expirationYear, _expirationMonth, _expirationDay);
@@ -130,6 +174,7 @@ public class SingleMedicationPrescriptionHandler {
     public int getRefillsRemaining(){return _refillsRemaining;}
 
     public List<LocalDateTime> getAllTheTimesYouTookYourPills(){
+        putAllTheTimesYouTookYourPillsInChronologicalOrder();
         List<LocalDateTime> clone = new ArrayList<>();
         for(LocalDateTime timeTaken: allTheTimesYouTookYourPills){
             clone.add(timeTaken);
@@ -288,11 +333,11 @@ public class SingleMedicationPrescriptionHandler {
             }
 
             allTheTimesYouTookYourPills.add(timeYouTookPill);
-            String timeYouTookPillString = timeYouTookPill.getYear() + "\n" + timeYouTookPill.getMonthValue() + "\n" + timeYouTookPill.getDayOfMonth() + "\n" + timeYouTookPill.getHour() + "\n" + timeYouTookPill.getMinute();
-            stringsAllTheTimesYouTookYourPills.add(timeYouTookPillString);
+            backUpAllTheTimesYouTookYourPills();
             if(_startDate != null && timeYouTookPill.isBefore(_startDate)){
                 setStartDate(timeYouTookPill);
             }
+
         } else{
             actuallyTookPill = false;
         }
@@ -323,10 +368,7 @@ public class SingleMedicationPrescriptionHandler {
         allTheTimesYouTookYourPills = temp;
         stringsAllTheTimesYouTookYourPills = new ArrayList<>();
 
-        for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
-            String timeYouTookPillString = timeYouTookPill.getYear() + "\n" + timeYouTookPill.getMonthValue() + "\n" + timeYouTookPill.getDayOfMonth() + "\n" + timeYouTookPill.getHour() + "\n" + timeYouTookPill.getMinute();
-            stringsAllTheTimesYouTookYourPills.add(timeYouTookPillString);
-        }
+        backUpAllTheTimesYouTookYourPills();
     }
 
     public SingleMedicationPrescriptionHandler clone() {
