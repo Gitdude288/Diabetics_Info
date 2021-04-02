@@ -211,7 +211,6 @@ public class AddMedication implements Runnable{
 
             } catch (Exception e){
                 makeToast(e.getMessage());
-                editMedicationName.setText(e.getMessage());
             }
         }
 

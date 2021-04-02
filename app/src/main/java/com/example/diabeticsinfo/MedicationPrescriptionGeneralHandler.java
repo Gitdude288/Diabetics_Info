@@ -16,10 +16,37 @@ import com.example.diabeticsinfo.Notifier;
  */
 public class MedicationPrescriptionGeneralHandler {
     private List<SingleMedicationPrescriptionHandler> prescriptionList;
-    private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;
 
-    MedicationPrescriptionGeneralHandler(){
+    private LocalDateTime lastDateAndTimeTakePillsAlertWasSent;
+    private int pillAlertYear;
+    private int pillAlertMonth;
+    private int pillAlertDay;
+    private int pillAlertHour;
+    private int pillAlertMinute;
+
+    public MedicationPrescriptionGeneralHandler(){
         prescriptionList = new ArrayList<>();
+    }
+
+    public void recoverAllDates(){
+        try{
+            lastDateAndTimeTakePillsAlertWasSent = LocalDateTime.of(pillAlertYear, pillAlertMonth, pillAlertDay, pillAlertHour, pillAlertMinute);
+        } catch(Exception e){
+
+        }
+
+
+        for(SingleMedicationPrescriptionHandler handler: prescriptionList){
+            handler.recoverAllDates();
+        }
+    }
+
+    private void backUpTakePillAlertDate(){
+        pillAlertYear = lastDateAndTimeTakePillsAlertWasSent.getYear();
+        pillAlertMonth = lastDateAndTimeTakePillsAlertWasSent.getMonthValue();
+        pillAlertDay = lastDateAndTimeTakePillsAlertWasSent.getDayOfMonth();
+        pillAlertHour = lastDateAndTimeTakePillsAlertWasSent.getHour();
+        pillAlertMinute = lastDateAndTimeTakePillsAlertWasSent.getMinute();
     }
 
     private int getMaxTimesADay(){
@@ -39,6 +66,7 @@ public class MedicationPrescriptionGeneralHandler {
         if( ! prescriptionList.isEmpty()){
             if(lastDateAndTimeTakePillsAlertWasSent == null){
                 lastDateAndTimeTakePillsAlertWasSent = LocalDateTime.now();
+                backUpTakePillAlertDate();
                 takePillsMessage = "Remember to take your pills";
             } else if (lastDateAndTimeTakePillsAlertWasSent.toLocalDate().equals(today)){
                 int numberOfHoursBetweenAlerts = 24 / getMaxTimesADay();
@@ -49,11 +77,13 @@ public class MedicationPrescriptionGeneralHandler {
 
                 if((currentHour - hourOfLastAlert) >= numberOfHoursBetweenAlerts){
                     lastDateAndTimeTakePillsAlertWasSent = LocalDateTime.now();
+                    backUpTakePillAlertDate();
                     takePillsMessage = "Remember to take your pills";
                 }
 
             } else {
                 lastDateAndTimeTakePillsAlertWasSent = LocalDateTime.now();
+                backUpTakePillAlertDate();
                 takePillsMessage = "Remember to take your pills";
             }
         }
@@ -92,10 +122,11 @@ public class MedicationPrescriptionGeneralHandler {
             if(     handler.getPrescriptionName().equals(prescriptionName) &&
                     handler.getMilligramDosageInASingleTablet() == dosage){
                 clone = handler.clone();
+                return clone;
             }
         }
 
-        return clone;
+        return null;
     }
 
     public List<SingleMedicationPrescriptionHandler> cloneAll(){
@@ -110,6 +141,10 @@ public class MedicationPrescriptionGeneralHandler {
 
     public void addHandler(SingleMedicationPrescriptionHandler newHandler) throws Exception {
         if(newHandler.isValid()){
+            if(newHandler.getAllTheTimesYouTookYourPills().isEmpty()){
+                LocalDateTime now = LocalDateTime.now();
+                newHandler.setStartDate(now);
+            }
 
             boolean newHandlerIsUnique = true;
             for(SingleMedicationPrescriptionHandler existingHandler: prescriptionList){
@@ -138,19 +173,6 @@ public class MedicationPrescriptionGeneralHandler {
                     handler.getMilligramDosageInASingleTablet() == dosage)
             {
                 handler.takePill(timeTaken);
-                int pillsBeingTaken = handler.getTakeThisManyTabletsAtaTime();
-                int pillsInBottle = handler.getPillsRemainingInBottle();
-                int pillsLeft = pillsInBottle - pillsBeingTaken;
-
-                if(pillsLeft < 0){
-                    pillsLeft = 0;
-                }
-
-                try {
-                    handler.setPillsRemainingInBottle(pillsLeft);
-                } catch (Exception e) {
-                    //shouldn't ever have an exception
-                }
             }
         }
     }

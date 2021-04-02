@@ -1,6 +1,7 @@
 package com.example.diabeticsinfo;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -73,6 +74,14 @@ public class SaveLoad {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try{
+            medHandler.recoverAllDates();
+        }catch(Exception e){
+            Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
 
         return medHandler;
     }

@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
  */
 public class SingleMedicationPrescriptionHandler {
     private LocalDate _prescriptionExpiration;
+    private int _expirationYear;
+    private int _expirationMonth;
+    private int _expirationDay;
+
     private String _prescriptionName;
     private int _takeMedicationThisManyTimesADay;
     private int _milligramDosageInASingleTablet;
@@ -22,23 +26,100 @@ public class SingleMedicationPrescriptionHandler {
     private int _pillsRemainingInBottle;
     private int _refillsRemaining;
 
-    LocalDate _datePillCountAlertWasLastSent;
-    LocalDate _dateExpirationAlertWasLastSent;
+    private LocalDate _datePillCountAlertWasLastSent;
+    private int _pillCountAlertYear;
+    private int _pillCountAlertMonth;
+    private int _pillCountAlertDay;
+
+    private LocalDate _dateExpirationAlertWasLastSent;
+    private int _expirationAlertYear;
+    private int _expirationAlertMonth;
+    private int _expirationAlertDay;
+
+    private LocalDateTime _startDate;
+    int _startDateYear;
+    int _startDateMonth;
+    int _startDateDay;
+    private int _startDateHour;
+    private int _startDateMinute;
+
     private List<LocalDateTime> allTheTimesYouTookYourPills;
+    private List<String> stringsAllTheTimesYouTookYourPills;
+
+
 
     public SingleMedicationPrescriptionHandler(){
         _maxPillCountInBottle = -1;
         _pillsRemainingInBottle = -1;
         _refillsRemaining = -1;
         allTheTimesYouTookYourPills = new ArrayList<>();
+        stringsAllTheTimesYouTookYourPills = new ArrayList<>();
+    }
+
+    public void recoverAllDates(){
+        try{
+            _prescriptionExpiration = LocalDate.of(_expirationYear, _expirationMonth, _expirationDay);
+        }catch(Exception e){
+
+        }
+
+        try{
+            _datePillCountAlertWasLastSent = LocalDate.of(_pillCountAlertYear, _pillCountAlertMonth, _pillCountAlertDay);
+        }catch(Exception e){
+
+        }
+
+        try{
+            _dateExpirationAlertWasLastSent = LocalDate.of(_expirationAlertYear, _expirationAlertMonth, _expirationAlertDay);
+        }catch(Exception e){
+
+        }
+
+        try{
+            _startDate = LocalDateTime.of(_startDateYear, _startDateMonth, _startDateDay, _startDateHour, _startDateMinute);
+        }catch(Exception e){
+
+        }
+
+        allTheTimesYouTookYourPills.clear();
+
+        for(String tookPillString: stringsAllTheTimesYouTookYourPills){
+            int data[] = new int[5];
+            int i = 0;
+            for(String dataString: tookPillString.split("\n")){
+                data[i] = Integer.parseInt(dataString);
+                i += 1;
+            }
+
+            try{
+                LocalDateTime timePillWasTaken = LocalDateTime.of(data[0], data[1], data[2], data[3], data[4]);
+                allTheTimesYouTookYourPills.add(timePillWasTaken);
+            } catch(Exception e){
+
+            }
+
+        }
+    }
+
+    public LocalDate getStartDate(){
+        return _startDate.toLocalDate();
     }
 
     public String getPrescriptionName(){
         return _prescriptionName;
     }
+
     public LocalDate getPrescriptionExpiration() {
+        if(_prescriptionExpiration == null){
+            try{
+                setPrescriptionExpiration(_expirationYear, _expirationMonth, _expirationDay);
+            } catch(Exception e){
+
+            }
+        }
         return _prescriptionExpiration;
     }
+
     public int getTakeMedicationThisManyTimesADay(){return _takeMedicationThisManyTimesADay;}
     public int getMilligramDosageInASingleTablet(){return _milligramDosageInASingleTablet;}
     public int getTakeThisManyTabletsAtaTime(){return _takeThisManyTabletsAtaTime;}
@@ -136,6 +217,9 @@ public class SingleMedicationPrescriptionHandler {
         try {
             LocalDate prescriptionExpiration = LocalDate.of(year, month, day);
             _prescriptionExpiration = prescriptionExpiration;
+            _expirationYear = year;
+            _expirationMonth = month;
+            _expirationDay = day;
         } catch (Exception e){
             Exception invalidDate = new Exception("Invalid date");
             throw invalidDate;
@@ -144,14 +228,64 @@ public class SingleMedicationPrescriptionHandler {
 
     public void setDatePillCountAlertWasLastSent(LocalDate datePillCountAlertWasLastSent){
         _datePillCountAlertWasLastSent = datePillCountAlertWasLastSent;
+
+        _pillCountAlertYear = datePillCountAlertWasLastSent.getYear();
+        _pillCountAlertMonth = datePillCountAlertWasLastSent.getMonthValue();
+        _pillCountAlertDay = datePillCountAlertWasLastSent.getDayOfMonth();
     }
 
     public void setDateExpirationAlertWasLastSent(LocalDate dateExpirationAlertWasLastSent){
         _dateExpirationAlertWasLastSent = dateExpirationAlertWasLastSent;
+
+        _expirationAlertYear = dateExpirationAlertWasLastSent.getYear();
+        _expirationAlertMonth = dateExpirationAlertWasLastSent.getMonthValue();
+        _expirationAlertDay = dateExpirationAlertWasLastSent.getDayOfMonth();
     }
 
-    public void takePill(LocalDateTime timeYouTookPill){
-        allTheTimesYouTookYourPills.add(timeYouTookPill);
+    public void setStartDate(LocalDateTime startDate){
+        _startDate = startDate;
+        _startDateYear = startDate.getYear();
+        _startDateMonth = startDate.getMonthValue();
+        _startDateDay = startDate.getDayOfMonth();
+        _startDateHour = startDate.getHour();
+        _startDateMinute = startDate.getMinute();
+    }
+
+    public boolean takePill(LocalDateTime timeYouTookPill){
+        boolean actuallyTookPill = true;
+
+        for(LocalDateTime takePillEvent: allTheTimesYouTookYourPills){
+            if(timeYouTookPill.equals(takePillEvent)){
+                actuallyTookPill = false;
+            }
+        }
+
+        if(actuallyTookPill && getPillsRemainingInBottle() > 0){
+            int pillsBeingTaken = getTakeThisManyTabletsAtaTime();
+            int pillsInBottle = getPillsRemainingInBottle();
+            int pillsLeft = pillsInBottle - pillsBeingTaken;
+
+            if(pillsLeft < 0){
+                pillsLeft = 0;
+            }
+
+            try {
+                setPillsRemainingInBottle(pillsLeft);
+            } catch (Exception e) {
+                //shouldn't ever have an exception
+            }
+
+            allTheTimesYouTookYourPills.add(timeYouTookPill);
+            String timeYouTookPillString = timeYouTookPill.getYear() + "\n" + timeYouTookPill.getMonthValue() + "\n" + timeYouTookPill.getDayOfMonth() + "\n" + timeYouTookPill.getHour() + "\n" + timeYouTookPill.getMinute();
+            stringsAllTheTimesYouTookYourPills.add(timeYouTookPillString);
+            if(_startDate != null && timeYouTookPill.isBefore(_startDate)){
+                setStartDate(timeYouTookPill);
+            }
+        } else{
+            actuallyTookPill = false;
+        }
+
+        return actuallyTookPill;
     }
 
     public void deleteTimeYouTookPill(LocalDateTime timeYouWantDeleted){
@@ -171,6 +305,12 @@ public class SingleMedicationPrescriptionHandler {
     public SingleMedicationPrescriptionHandler clone() {
         SingleMedicationPrescriptionHandler clone = new SingleMedicationPrescriptionHandler();
 
+        try{
+            clone.setStartDate(_startDate);
+        }catch(Exception e){
+
+        }
+
         for(LocalDateTime timeYouTookPill: allTheTimesYouTookYourPills){
             clone.takePill(timeYouTookPill);
         }
@@ -180,15 +320,9 @@ public class SingleMedicationPrescriptionHandler {
         } catch (Exception e) {
             //e.printStackTrace();
         }
-        LocalDate prescriptionExpiration = _prescriptionExpiration;
-        int year = prescriptionExpiration.getYear();
-        int month = prescriptionExpiration.getMonthValue();
-        int day = prescriptionExpiration.getDayOfMonth();
-        try {
-            clone.setPrescriptionExpiration(year, month, day);
-        } catch (Exception e) {
-            //e.printStackTrace();
-        }
+        clone._expirationYear = _expirationYear;
+        clone._expirationMonth = _expirationMonth;
+        clone._expirationDay = _expirationDay;
         try {
             clone.setTakeThisManyTabletsAtaTime(_takeThisManyTabletsAtaTime);
         } catch (Exception e) {
@@ -298,6 +432,14 @@ public class SingleMedicationPrescriptionHandler {
 
     public boolean isValid() throws Exception {
         boolean isValid = false;
+
+        if(_prescriptionExpiration == null){
+            try {
+                setPrescriptionExpiration(_expirationYear, _expirationMonth, _expirationDay);
+            } catch(Exception e){
+
+            }
+        }
 
         if(     (_prescriptionName != null) &&
                 (_prescriptionExpiration != null) &&

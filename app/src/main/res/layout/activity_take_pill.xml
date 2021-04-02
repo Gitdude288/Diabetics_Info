@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TakePillActivity">
+
+    <EditText
+        android:id="@+id/takeMilitaryHour"
+        android:layout_width="112dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="military hour"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/takeYearSlash"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <TextView
+        android:id="@+id/takeYearSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:lineSpacingExtra="12sp"
+        android:text="/"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/takeYear"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <EditText
+        android:id="@+id/takeMonth"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="mm"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/takeMonthSlash"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <TextView
+        android:id="@+id/takeMonthSlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:lineSpacingExtra="12sp"
+        android:text="/"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/takeDay"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <EditText
+        android:id="@+id/takeYear"
+        android:layout_width="64dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="yyyy"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <EditText
+        android:id="@+id/takeDay"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="dd"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/takeDaySlash"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <TextView
+        android:id="@+id/takeDaySlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="/"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/takeYear"
+        app:layout_constraintTop_toBottomOf="@+id/takeMedication" />
+
+    <TextView
+        android:id="@+id/takeMedication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/takeDoseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="takeDose"
+        android:text="Take Dose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/takeYear" />
+</androidx.constraintlayout.widget.ConstraintLayout>

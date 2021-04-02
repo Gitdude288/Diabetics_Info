@@ -97,7 +97,7 @@ public class PdfGenerator {
                     }
                 }
 
-                if(handler.getTakeMedicationThisManyTimesADay() > numTimesTakePill){
+                if(handler.getTakeMedicationThisManyTimesADay() > numTimesTakePill && ! iterator.isBefore(handler.getStartDate())){
                     int numTimesForgotToTakePill = handler.getTakeMedicationThisManyTimesADay() - numTimesTakePill;
                     report += handler.getPrescriptionName() + ": ";
 
