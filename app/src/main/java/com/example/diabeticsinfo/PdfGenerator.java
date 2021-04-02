@@ -99,7 +99,7 @@ public class PdfGenerator {
 
                 if(handler.getTakeMedicationThisManyTimesADay() > numTimesTakePill && ! iterator.isBefore(handler.getStartDate())){
                     int numTimesForgotToTakePill = handler.getTakeMedicationThisManyTimesADay() - numTimesTakePill;
-                    report += handler.getPrescriptionName() + ": ";
+                    report += iterator.getMonthValue() + "/" + iterator.getDayOfMonth() + "/" + iterator.getYear() + " ";
 
                     if(numTimesForgotToTakePill == 1){
                         report += numTimesForgotToTakePill + " dose was";
@@ -107,7 +107,7 @@ public class PdfGenerator {
                         report += numTimesForgotToTakePill + " doses were";
                     }
 
-                    report += " missed on " + iterator.getMonthValue() + "/" + iterator.getDayOfMonth() + "/" + iterator.getYear() + "\n";
+                    report += " missed for " + handler.getPrescriptionName() + "\n";
                 }
 
             }
