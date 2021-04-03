@@ -22,7 +22,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MedicationListActivity" />
         </activity>
-        <activity android:name=".TakePillActivity">
+        <activity android:name=".TakePillActivity"
+            android:label="Take Pills">
             android:parentActivityName=".MedicationListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -30,7 +31,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MedicationListActivity" />
         </activity>
-        <activity android:name=".MedicationListActivity">
+        <activity android:name=".MedicationListActivity"
+            android:label="Medications List">
             android:parentActivityName=".MedicationActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -38,7 +40,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MedicationActivity" />
         </activity>
-        <activity android:name=".MedicationActivity">
+        <activity android:name=".MedicationActivity"
+            android:label="Medication"
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
