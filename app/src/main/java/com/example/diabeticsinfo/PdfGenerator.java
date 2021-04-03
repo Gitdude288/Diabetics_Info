@@ -176,6 +176,7 @@ public class PdfGenerator {
         long numDays = _toDate.toEpochDay() - _fromDate.toEpochDay();
 
         report += numDays + " Day Report\n\n";
+        report += "Average Blood Sugar Levels: " + getBSLAverage() + "\n";
 
         if(generateMedicationReport()){
             if(report.equals(numDays + " Day Report\n\nMedications Missed:\n")){
@@ -320,5 +321,31 @@ public class PdfGenerator {
         file.close();
 
         return ed;
+    }
+
+    public int getBSLAverage() throws IOException {
+        BSLMeasurement b = new BSLMeasurement();
+        b = getBSLData();
+        int days = 0;
+        int sum = 0;
+        int average = 0;
+
+        Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
+        Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+
+        Log.i("start", start.toString());
+        Log.i("end", end.toString());
+
+        for (int i = 0; i < b.dates.size(); i++) {
+
+            if (b.dates.get(i).after(start) && b.dates.get(i).before(end)) {
+                sum += b.bsl.get(i);
+                days += 1;
+            }
+        }
+        if (days != 0) {
+            average = sum / days;
+        }
+        return average;
     }
 }
