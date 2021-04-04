@@ -11,7 +11,10 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-
+/**
+ * @author Jaden Myers
+ *
+ */
 public class TakePillActivity extends AppCompatActivity {
     String _prescriptionName;
     int _prescriptionDosage;

@@ -8,6 +8,10 @@ import android.widget.EditText;
 
 import java.io.IOException;
 
+/**
+ * @author Jaden Myers
+ *
+ */
 public class EditMedicationActivity extends AppCompatActivity {
 
     MedicationPrescriptionGeneralHandler _generalHandler;

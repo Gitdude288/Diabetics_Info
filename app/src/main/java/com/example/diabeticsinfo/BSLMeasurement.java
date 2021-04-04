@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BSLMeasurement {
-    public List<java.sql.Date> dates = new ArrayList<java.sql.Date>();
-    public List<Integer> bsl = new ArrayList<Integer>();
+    public List<java.sql.Date> dates;
+    public List<Integer> bsl;
+
+    public BSLMeasurement(){
+        dates = new ArrayList<>();
+        bsl = new ArrayList<>();
+    }
 
     public void addDate(Date date) {
         dates.add(date);

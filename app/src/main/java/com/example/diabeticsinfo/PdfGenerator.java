@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,34 +49,48 @@ public class PdfGenerator {
         _fromDate = fromDate;
     }
 
-    public void generateBloodSugarReport() throws IOException {
+    public void generateBloodSugarReport(){
         report += "\nBlood Sugar: \n";
 
         //bsl object that data gets loaded to
         BSLMeasurement bsl = new BSLMeasurement();
-        bsl = getBSLData();
-        int days = 1;
-        Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
-        Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+        try{
+            bsl = getBSLData();
+        } catch(Exception e){
 
-        Log.i("start", start.toString());
-        Log.i("end", end.toString());
+        }
 
-        for (int i = 0; i < bsl.dates.size(); i++) {
 
-            if (bsl.dates.get(i).after(start) && bsl.dates.get(i).before(end)) {
-                report += "day " + days + " blood sugar reading: ";
-                report += bsl.bsl.get(i) + "\n";
-                days += 1;
+        if(! bsl.dates.isEmpty() && ! bsl.bsl.isEmpty()){
+            int days = 1;
+            Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
+            Date end = new Date(_toDate.getYear() - 1900, _toDate.getMonthValue() - 1, _toDate.getDayOfMonth());
+
+            Log.i("start", start.toString());
+            Log.i("end", end.toString());
+
+            for (int i = 0; i < bsl.dates.size(); i++) {
+
+                if (bsl.dates.get(i).after(start) && bsl.dates.get(i).before(end)) {
+                    report += "day " + days + " blood sugar reading: ";
+                    report += bsl.bsl.get(i) + "\n";
+                    days += 1;
+                }
             }
         }
+
     }
 
-    public void generateBloodPressureReport() throws IOException {
+    public void generateBloodPressureReport(){
         report += "\nBlood Pressure: \n";
 
         BloodPressureMeasurement bp = new BloodPressureMeasurement();
-        bp = getBloodPressureData();
+        try{
+            bp = getBloodPressureData();
+        }catch(Exception e){
+
+        }
+
 
         int days = 1;
         Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
@@ -94,11 +109,16 @@ public class PdfGenerator {
         }
     }
 
-    public void generateExerciseReport() throws IOException {
+    public void generateExerciseReport(){
         report += "\nExercise: \n";
 
         ExerciseData e = new ExerciseData();
-        e = getExerciseData();
+        try{
+            e = getExerciseData();
+        }catch(Exception e1){
+
+        }
+
 
         int days = 1;
         Date start = new Date(_fromDate.getYear() - 1900, _fromDate.getMonthValue() - 1, _fromDate.getDayOfMonth());
@@ -138,6 +158,8 @@ public class PdfGenerator {
 
         report += "Medications Missed:\n";
 
+        boolean didWeEverMiss = false;
+
         while(iterator.isBefore(_toDate)){
             for(SingleMedicationPrescriptionHandler handler: medications){
                 List<LocalDateTime> allTheTimesYouTookYourPills = handler.getAllTheTimesYouTookYourPills();
@@ -150,6 +172,7 @@ public class PdfGenerator {
                 }
 
                 if(handler.getTakeMedicationThisManyTimesADay() > numTimesTakePill && ! iterator.isBefore(handler.getStartDate())){
+                    didWeEverMiss = true;
                     int numTimesForgotToTakePill = handler.getTakeMedicationThisManyTimesADay() - numTimesTakePill;
                     report += iterator.getMonthValue() + "/" + iterator.getDayOfMonth() + "/" + iterator.getYear() + " ";
 
@@ -167,22 +190,23 @@ public class PdfGenerator {
             iterator = iterator.plusDays(1);
         }
 
+        if(didWeEverMiss == false && areThereAnyMedicationsListed){
+            report += "No medicatins were missed\n";
+        }
+
+
         return areThereAnyMedicationsListed;
 
     }
 
-    public String generateReport() throws IOException {
+    public String generateReport(){
 
         long numDays = _toDate.toEpochDay() - _fromDate.toEpochDay();
 
         report += numDays + " Day Report\n\n";
-        report += "Average Blood Sugar Levels: " + getBSLAverage() + "\n";
+        report += "Average Blood Sugar Levels: " + getBSLAverage() + "\n\n";
 
-        if(generateMedicationReport()){
-            if(report.equals(numDays + " Day Report\n\nMedications Missed:\n")){
-                report += "No medications were missed\n";
-            }
-        } else{
+        if(!generateMedicationReport()){
             report += "No medications are listed\n";
         }
 
@@ -201,7 +225,7 @@ public class PdfGenerator {
         return report;
     }
 
-    public BSLMeasurement getBSLData() throws IOException {
+    public BSLMeasurement getBSLData(){
         File logFile = new File(bslFileName);
         if (!logFile.exists())
         {
@@ -217,7 +241,11 @@ public class PdfGenerator {
         }
 
         FileInputStream file = null;
-        file = _context.openFileInput(bslFileName);
+        try {
+            file = _context.openFileInput(bslFileName);
+        } catch (FileNotFoundException e) {
+
+        }
 
         InputStreamReader isr = new InputStreamReader(file);
         BufferedReader bfr = new BufferedReader(isr);
@@ -225,9 +253,14 @@ public class PdfGenerator {
 
         String reader;
 
-        while ((reader = bfr.readLine()) != null) {
-            sb.append(reader).append("");
+        try{
+            while ((reader = bfr.readLine()) != null) {
+                sb.append(reader).append("");
+            }
+        }catch(Exception e){
+
         }
+
 
         reader = sb.toString();
 
@@ -237,12 +270,16 @@ public class PdfGenerator {
         bl = gson.fromJson(reader, BSLMeasurement.class);
 
         Log.i("addMedication", bl.getData());
-        file.close();
+        try {
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return bl;
     }
 
-    public BloodPressureMeasurement getBloodPressureData() throws IOException {
+    public BloodPressureMeasurement getBloodPressureData(){
         File logFile = new File(bpFileName);
         if (!logFile.exists())
         {
@@ -258,7 +295,13 @@ public class PdfGenerator {
         }
 
         FileInputStream file = null;
-        file = _context.openFileInput(bpFileName);
+
+        try{
+            file = _context.openFileInput(bpFileName);
+        }catch(Exception e){
+
+        }
+
 
         InputStreamReader isr = new InputStreamReader(file);
         BufferedReader bfr = new BufferedReader(isr);
@@ -266,9 +309,14 @@ public class PdfGenerator {
 
         String reader;
 
-        while ((reader = bfr.readLine()) != null) {
-            sb.append(reader).append("");
+        try{
+            while ((reader = bfr.readLine()) != null) {
+                sb.append(reader).append("");
+            }
+        }catch(Exception e){
+
         }
+
 
         reader = sb.toString();
 
@@ -278,12 +326,17 @@ public class PdfGenerator {
         b = gson.fromJson(reader, BloodPressureMeasurement.class);
 
         Log.i("addBloodPressure", b.getData());
-        file.close();
+
+        try {
+            file.close();
+        } catch (IOException e) {
+
+        }
 
         return b;
     }
 
-    public ExerciseData getExerciseData() throws IOException {
+    public ExerciseData getExerciseData(){
         File logFile = new File(exFileName);
         if (!logFile.exists())
         {
@@ -299,7 +352,12 @@ public class PdfGenerator {
         }
 
         FileInputStream file = null;
-        file = _context.openFileInput(exFileName);
+        try{
+            file = _context.openFileInput(exFileName);
+        }catch(Exception e){
+
+        }
+
 
         InputStreamReader isr = new InputStreamReader(file);
         BufferedReader bfr = new BufferedReader(isr);
@@ -307,9 +365,14 @@ public class PdfGenerator {
 
         String reader;
 
-        while ((reader = bfr.readLine()) != null) {
-            sb.append(reader).append("");
+        try{
+            while ((reader = bfr.readLine()) != null) {
+                sb.append(reader).append("");
+            }
+        }catch(Exception e){
+
         }
+
 
         reader = sb.toString();
 
@@ -318,14 +381,24 @@ public class PdfGenerator {
         ed = gson.fromJson(reader, ExerciseData.class);
 
         Log.i("addMedication", ed.getData());
-        file.close();
+
+        try{
+            file.close();
+        }catch(Exception e){
+
+        }
+
 
         return ed;
     }
 
-    public int getBSLAverage() throws IOException {
+    public int getBSLAverage(){
         BSLMeasurement b = new BSLMeasurement();
-        b = getBSLData();
+        try {
+            b = getBSLData();
+        } catch (Exception e) {
+
+        }
         int days = 0;
         int sum = 0;
         int average = 0;
